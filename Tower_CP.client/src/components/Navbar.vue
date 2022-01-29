@@ -8,6 +8,7 @@
           height="45"
         />
       </div>
+      <button class="btn btn-sm btn-outline-success mx-2" title="Create a new event">Create Event</button>
     </router-link>
     <button
       class="navbar-toggler"
@@ -20,15 +21,12 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
+    <div class="collapse navbar-collapse" id="navbarText" title="Click to expand">
       <ul class="navbar-nav me-auto">
-        <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
-        </li>
+        
       </ul>
       <span class="navbar-text">
+        
         <button
           class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
           @click="login"
@@ -36,7 +34,7 @@
         >
           Login
         </button>
-
+        
         <div class="dropdown my-2 my-lg-0" v-else>
           <div
             class="dropdown-toggle selectable"
@@ -66,7 +64,7 @@
               @click="logout"
             >
               <i class="mdi mdi-logout"></i>
-              logout
+              Logout
             </div>
           </div>
         </div>
