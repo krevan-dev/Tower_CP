@@ -34,6 +34,16 @@ class TowerEventsService {
     await eventToEdit.save()
     return eventToEdit
   }
+
+  async deleteEvent(eventId) {
+    const eventToDelete = await this.getEventById(eventId)
+    if (eventToDelete.creatorId.toString() !== eventToDelete.creatorId) {
+      throw new BadRequest('You are not authorized to delete this event')
+    }
+    eventToDelete.deleted = true
+    await eventToDelete.save()
+    return eventToDelete
+  }
 }
 
 export const towerEventsService = new TowerEventsService()
