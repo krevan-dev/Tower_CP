@@ -8,7 +8,7 @@ export class AttendeesController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.attendEvent)
-      .delete('/:id', this.removeAttendee)
+      .delete('/:id', this.unattendEvent)
   }
 
   async attendEvent(req, res, next) {
@@ -20,11 +20,10 @@ export class AttendeesController extends BaseController {
     }
   }
 
-  async removeAttendee(req, res, next) {
+  async unattendEvent(req, res, next) {
     try {
-      req.body.accountId = req.userInfo.id
-      const attendee = await attendeesService.removeAttendee(req.params.id, req.userInfo)
-      return res.send(attendee)
+      const event = await attendeesService.unattendEvent(req.userinfo.id, req.params.eventId)
+      return res.send(event)
     } catch (error) {
       next(error)
     }

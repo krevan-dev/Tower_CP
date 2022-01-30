@@ -1,14 +1,24 @@
+import { BadRequest } from '@bcwdev/auth0provider/lib/Errors'
+import { dbContext } from '../db/DbContext'
+
 class CommentsService {
-  postComment(body) {
-    throw new Error('Method not implemented.')
+  async postComment(body) {
+    const comment = await dbContext.Comments.create(body)
+    return comment
   }
 
-  deleteComment(body) {
-    throw new Error('Method not implemented.')
+  async deleteComment(commentId, userId) {
+    const foundComment = await dbContext.Comments.findById(commentId)
+    if (foundComment.creatorId.toString() !== userId) {
+      throw new BadRequest('You are not authorized to delete this comment')
+    }
+    await foundComment.remove()
+    return foundComment
   }
 
-  getEventComments() {
-    throw new Error('Method not implemented.')
+  async getEventComments(commentId) {
+    const comment = await dbContext.Comments.findByIdAndRemove(commentId)
+    return comment
   }
 }
 
