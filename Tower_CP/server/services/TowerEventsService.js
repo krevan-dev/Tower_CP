@@ -24,28 +24,35 @@ class TowerEventsService {
     return event
   }
 
-  async editEvent(eventId, body) {
-    const event = await dbContext.Events.findById(eventId)
-    if (!event) {
-      throw new BadRequest('Invalid Event Id')
-    } else if (event.creatorId.toString() !== body.creatorId.toString()) {
-      throw new BadRequest('You are not authorized to edit this event')
-    } else if (event.cancelled) {
-      throw new BadRequest('This event has been cancelled')
+  async editEvent(eventId, editedEvent) {
+    const originalEvent = await this.getEventById(eventId)
+    if (originalEvent.isCanceled === true) {
+      throw new BadRequest('This event has already been cancelled')
     }
-    await event.updateOne(body)
-    await event.populate('creator', 'name picture')
-    return event
+    if (originalEvent.creatorId.toString() !== editedEvent.creatorId) {
+      throw new BadRequest('You are not authorized to edit this event')
+    }
+    originalEvent.name = editedEvent.name || originalEvent.name
+    originalEvent.description = editedEvent.description || originalEvent.description
+    originalEvent.coverImg = editedEvent.coverImg || originalEvent.coverImg
+    originalEvent.location = editedEvent.location || originalEvent.location
+    originalEvent.capacity = editedEvent.capacity || originalEvent.capacity
+    originalEvent.startDate = editedEvent.startDate || originalEvent.startDate
+    originalEvent.type = editedEvent.type || originalEvent.type
+    originalEvent.save()
+    return originalEvent
   }
 
-  async deleteEvent(eventId) {
-    const eventToDelete = await this.getEventById(eventId)
-    if (eventToDelete.creatorId.toString() !== eventToDelete.creatorId) {
+  async cancelEvent(eventId, userId) {
+    // NOTE need to pass through creatorId from controller
+    const eventToCancel = await this.getEventById(eventId)
+    if (eventToCancel.creatorId.toString() !== userId && eventToCancel.isCanceled !== true) {
       throw new BadRequest('You are not authorized to delete this event')
     }
-    eventToDelete.cancelled = true
-    await eventToDelete.save()
-    return eventToDelete
+    // NOTE we should also think about checking to see if the event is cancelled BEFORE we update the field
+    eventToCancel.isCanceled = true
+    await eventToCancel.save()
+    return eventToCancel
   }
 }
 

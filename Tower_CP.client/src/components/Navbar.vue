@@ -5,7 +5,7 @@
         Tower Events
       </div>
     </router-link>
-    <button class="btn btn-sm btn-outline-success mx-5" title="Create a new event">Create Event</button>
+    <!-- <button class="btn btn-sm btn-outline-success mx-5" title="Create a new event">Create Event</button> -->
     <button
       class="navbar-toggler"
       type="button"
@@ -55,6 +55,9 @@
                 Manage Account
               </div>
             </router-link>
+            <div class="list-group-item list-group-item-action hoverable ">
+              Create Event
+            </div>
             <div
               class="list-group-item list-group-item-action hoverable text-danger"
               @click="logout"
