@@ -1,9 +1,9 @@
 <template>
-<div class="col-md-3 col-sm-6 my-3">
-  <div class="card bg-dark text-white">
-    <img src="//placehold.it/200x200" class="card-img" alt="...">
+<div class="col-md-3 col-sm-6 mt-3">
+  <div class="card bg-dark text-white selectable">
+    <img src="src/assets/img/concert-card-img.jpg" class="card-img cardSize" alt="...">
     <div class="card-img-overlay">
-      <h5 class="card-title d-flex flex-column justify-content-end">Event Name</h5>
+      <h5 class="card-title">Event Name</h5>
     </div>
   </div>
 </div>
@@ -20,5 +20,9 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.cardSize {
+  height: 40vh;
+  object-fit: cover;
+  object-position: bottom;
+}
 </style>

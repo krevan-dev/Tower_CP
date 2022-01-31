@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-9 my-2">
+  <div class="col-md-9 mt-3">
     <div class="card">
       <div class="card-body d-flex">
         <div class="me-3">

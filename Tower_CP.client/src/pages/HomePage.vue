@@ -4,8 +4,8 @@
       <HomeBanner />
     </div>
     <div class="row d-flex justify-content-center">
-      <EventCard v-for="e in 12" :key="e"/>
-      <CommentCard v-for="c in 5" :key="c"/>
+      <EventCard v-for="e in 4" :key="e"/>
+      <CommentCard v-for="c in 3" :key="c"/>
     </div>
   </div>
 </template>
