@@ -4,8 +4,8 @@
       <div class="d-flex flex-column align-items-center">
         Tower Events
       </div>
-      <button class="btn btn-sm btn-outline-success mx-5" title="Create a new event">Create Event</button>
     </router-link>
+    <button class="btn btn-sm btn-outline-success mx-5" title="Create a new event" data-label-id="0" style="position: relative; left: 1320px; transition: none 0s ease 0s; cursor: move;">Create Event</button>
     <button
       class="navbar-toggler"
       type="button"
