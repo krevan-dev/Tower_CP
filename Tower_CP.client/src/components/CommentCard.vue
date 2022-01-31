@@ -10,7 +10,7 @@
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus corporis fuga ut repellat veniam maxime libero omnis ipsum, necessitatibus in voluptate quaerat iste ducimus suscipit quam harum nulla, saepe commodi.</p>
         </div>
       </div>
-      <div class="d-flex justify-content-end mx-3 my-1 text-muted">Posted 5 minutes ago.</div>
+      <div class="d-flex justify-content-end mx-3 my-2 text-muted">Posted 5 minutes ago.</div>
     </div>
   </div>
 </template>
