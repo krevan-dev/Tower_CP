@@ -5,7 +5,7 @@
   <main>
     <router-view />
   </main>
-  <footer>
+  <footer class="mt-3">
     <div class="bg-dark text-light text-center p-4">
       Made with 😡 by Kyle E.
     </div>

@@ -23,7 +23,6 @@ class AttendeesService {
     return attendee
   }
 
-  // NOTE remember to findByIdAndDelete the attendeeId and not the userId
   async removeAttend(id, userId) {
     const attendee = await dbContext.Attendees.findById(id)
     const event = await dbContext.Events.findById(attendee.eventId)
