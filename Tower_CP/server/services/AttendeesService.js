@@ -3,29 +3,41 @@ import { dbContext } from '../db/DbContext'
 
 class AttendeesService {
   async getEventAttendees(eventId) {
-    const event = await dbContext.Attendees.findById(eventId)
+    const event = await dbContext.Attendees.find({ eventId }).populate('account')
     if (!event) {
       throw new BadRequest('Unable to retrieve event attendees. Invalid Event Id')
     }
     return event
   }
 
-  async attendEvent(body) {
+  async attendEvent(body, eventId) {
     const attendee = await dbContext.Attendees.create(body)
+    const event = await dbContext.Events.findById(eventId)
+    if (event.capacity <= 0) {
+      throw new BadRequest('There are no more seats available')
+    }
+    await attendee.populate('account')
+    await attendee.populate('event')
+    await event.capacity--
+    event.save()
     return attendee
   }
 
-  async unattendEvent(attendeeId, eventId) {
-    const attendee = await dbContext.Attendees.findById(attendeeId)
-    if (!attendee) {
-      throw new BadRequest('Unable to retrieve attendee. Invalid Attendee Id')
+  async unattendEvent(body, userId) {
+    const attendee = await dbContext.Attendees.findById(body)
+    const event = await dbContext.Events.findById(attendee.eventId)
+    if (attendee.accountId.toString() !== userId) {
+      throw new BadRequest('You are unable to do that')
     }
-    const event = await dbContext.Events.findById(eventId)
-    if (!event) {
-      throw new BadRequest('Unable to retrieve event. Invalid Event Id')
-    }
-    await attendee.remove()
+    await dbContext.Attendees.findByIdAndDelete(userId)
+    await event.capacity++
+    event.save()
     return attendee
+  }
+
+  async getMyAttending(userId) {
+    const attending = await dbContext.Attendees.find({ accountId: userId }).populate('event')
+    return attending
   }
 }
 

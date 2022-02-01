@@ -13,7 +13,8 @@ export class AttendeesController extends BaseController {
 
   async attendEvent(req, res, next) {
     try {
-      const event = await attendeesService.attendEvent()
+      req.body.accountId = req.userInfo.id
+      const event = await attendeesService.attendEvent(req.body, req.body.eventId)
       return res.send(event)
     } catch (error) {
       next(error)
@@ -22,7 +23,8 @@ export class AttendeesController extends BaseController {
 
   async unattendEvent(req, res, next) {
     try {
-      const event = await attendeesService.unattendEvent(req.userinfo.id, req.params.eventId)
+      req.body.accountId = req.userInfo.id
+      const event = await attendeesService.unattendEvent(req.body, req.userInfo.id)
       return res.send(event)
     } catch (error) {
       next(error)

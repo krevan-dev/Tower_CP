@@ -1,4 +1,4 @@
-import { BadRequest } from '@bcwdev/auth0provider/lib/Errors'
+import { BadRequest, Forbidden } from '@bcwdev/auth0provider/lib/Errors'
 import { dbContext } from '../db/DbContext'
 
 class TowerEventsService {
@@ -27,7 +27,7 @@ class TowerEventsService {
   async editEvent(eventId, editedEvent) {
     const originalEvent = await this.getEventById(eventId)
     if (originalEvent.isCanceled === true) {
-      throw new BadRequest('This event has already been cancelled')
+      throw new Forbidden('This event has already been cancelled')
     }
     if (originalEvent.creatorId.toString() !== editedEvent.creatorId) {
       throw new BadRequest('You are not authorized to edit this event')
@@ -44,12 +44,10 @@ class TowerEventsService {
   }
 
   async cancelEvent(eventId, userId) {
-    // NOTE need to pass through creatorId from controller
     const eventToCancel = await this.getEventById(eventId)
     if (eventToCancel.creatorId.toString() !== userId && eventToCancel.isCanceled !== true) {
       throw new BadRequest('You are not authorized to delete this event')
     }
-    // NOTE we should also think about checking to see if the event is cancelled BEFORE we update the field
     eventToCancel.isCanceled = true
     await eventToCancel.save()
     return eventToCancel
