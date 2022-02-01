@@ -18,21 +18,21 @@ class AttendeesService {
     }
     await attendee.populate('account')
     await attendee.populate('event')
-    await event.capacity--
+    event.capacity--
     event.save()
     return attendee
   }
 
-  async unattendEvent(body, userId) {
-    const attendee = await dbContext.Attendees.findById(body)
+  // NOTE remember to findByIdAndDelete the attendeeId and not the userId
+  async removeAttend(id, userId) {
+    const attendee = await dbContext.Attendees.findById(id)
     const event = await dbContext.Events.findById(attendee.eventId)
     if (attendee.accountId.toString() !== userId) {
       throw new BadRequest('You are unable to do that')
     }
-    await dbContext.Attendees.findByIdAndDelete(userId)
-    await event.capacity++
+    await dbContext.Attendees.findByIdAndDelete(id)
+    event.capacity++
     event.save()
-    return attendee
   }
 
   async getMyAttending(userId) {

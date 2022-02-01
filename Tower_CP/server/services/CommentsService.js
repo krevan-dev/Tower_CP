@@ -2,8 +2,10 @@ import { BadRequest } from '@bcwdev/auth0provider/lib/Errors'
 import { dbContext } from '../db/DbContext'
 
 class CommentsService {
-  async postComment(body) {
+  async createComment(body) {
     const comment = await dbContext.Comments.create(body)
+    await comment.populate('creator')
+    await comment.populate('event')
     return comment
   }
 
@@ -12,13 +14,12 @@ class CommentsService {
     if (foundComment.creatorId.toString() !== userId) {
       throw new BadRequest('You are not authorized to delete this comment')
     }
-    await foundComment.remove()
-    return foundComment
+    await dbContext.Comments.findByIdAndDelete(commentId)
   }
 
-  async getEventComments(commentId) {
-    const comment = await dbContext.Comments.findByIdAndRemove(commentId)
-    return comment
+  async getEventComments(eventId) {
+    const comments = await dbContext.Comments.find(eventId).populate('creator')
+    return comments
   }
 }
 
