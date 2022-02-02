@@ -1,4 +1,4 @@
-import { BadRequest } from '@bcwdev/auth0provider/lib/Errors'
+import { BadRequest, Forbidden } from '@bcwdev/auth0provider/lib/Errors'
 import { dbContext } from '../db/DbContext'
 
 class AttendeesService {
@@ -14,7 +14,7 @@ class AttendeesService {
     const attendee = await dbContext.Attendees.create(body)
     const event = await dbContext.Events.findById(eventId)
     if (event.capacity <= 0) {
-      throw new BadRequest('There are no more seats available')
+      throw new Forbidden('There are no more seats available')
     }
     await attendee.populate('account')
     await attendee.populate('event')

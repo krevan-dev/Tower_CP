@@ -7,14 +7,14 @@
   </main>
   <footer class="mt-3">
     <div class="bg-dark text-light text-center p-4">
-      Made with 😡 by Kyle E.
+      Made with sadness and caffeine by Kyle E.
     </div>
   </footer>
-  <Modal id="createEvent">
+  <Modal id="eventModal">
     <template #modal-title>
     </template>
     <template #modal-body>
-      <CreateEventForm />
+      <EventForm />
     </template>
   </Modal>
 </template>

@@ -11,6 +11,12 @@ class AccountService {
       logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
     }
   }
+
+  async getAllMyEvents() {
+    const res = await api.get('account/attendees')
+    // logger.log(res.data)
+    AppState.myEvents = res.data
+  }
 }
 
 export const accountService = new AccountService()

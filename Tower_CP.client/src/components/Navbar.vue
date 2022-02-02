@@ -50,7 +50,7 @@
             class="dropdown-menu p-0 list-group w-100"
             aria-labelledby="authDropdown"
           >
-            <div class="list-group-item list-group-item-action hoverable" data-bs-toggle="modal" data-bs-target="#createEvent">
+            <div class="list-group-item list-group-item-action hoverable" data-bs-toggle="modal" data-bs-target="#eventModal">
               Create Event
             </div>
             <router-link :to="{ name: 'Account' }">
