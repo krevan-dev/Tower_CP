@@ -18,9 +18,9 @@
         </div>
       </div>
       <div class="col-md-9 bg-white mt-3 px-3">
-        <form>
-          <div class="row mx-1">
-            <textarea class="mt-3" placeholder="Add a comment..." name="" id="" cols="169" rows="4"></textarea>
+        <form @submit.prevent="createComment()">
+          <div class="row mx-1 mt-3">
+            <input type="text" class="form-control" placeholder="Add a comment..." v-model="editable.body">
           </div>
         </form>
         <CommentCard v-for="c in comments" :key="c.id" :comment="c"/>
@@ -31,7 +31,7 @@
 
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed, onMounted, ref } from '@vue/runtime-core'
 import Pop from '../utils/Pop'
 import { logger } from '../utils/Logger'
 import { eventsService } from '../services/EventsService'
@@ -41,6 +41,7 @@ import { AppState } from '../AppState'
 export default {
   setup(){
     const route = useRoute()
+    const editable = ref({ eventId: route.params.id, body: "" })
     onMounted(async () => {
       try {
         await eventsService.getEventById(route.params.id)
@@ -51,8 +52,19 @@ export default {
       }
     })
     return {
+      editable,
       activeEvent: computed(() => AppState.activeEvent),
-      comments: computed(() => AppState.comments)
+      comments: computed(() => AppState.comments),
+      async createComment() {
+        try {
+          await commentsService.createComment(editable.value)
+          editable.value.body = ""
+          Pop.toast("Comment successful!")
+        } catch (error) {
+          Pop.toast(error.message, "error")
+          logger.log(error)
+        }
+      }
     }
   }
 }

@@ -10,7 +10,6 @@
           <p>{{comment.body}}</p>
         </div>
       </div>
-      <div class="d-flex justify-content-end mx-3 my-2 text-muted">{{comment.createdAt}}</div>
     </div>
   </div>
 </template>
