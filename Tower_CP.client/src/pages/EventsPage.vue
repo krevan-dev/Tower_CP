@@ -19,7 +19,7 @@
       </div>
       <div class="col-md-9 bg-white mt-3 px-3">
         <form @submit.prevent="createComment()">
-          <div class="row mx-1 mt-3">
+          <div v-if="account.id" class="row mx-1 mt-3">
             <input type="text" class="form-control" placeholder="Add a comment..." v-model="editable.body">
           </div>
         </form>
@@ -53,6 +53,7 @@ export default {
     })
     return {
       editable,
+      account: computed(() => AppState.account),
       activeEvent: computed(() => AppState.activeEvent),
       comments: computed(() => AppState.comments),
       async createComment() {

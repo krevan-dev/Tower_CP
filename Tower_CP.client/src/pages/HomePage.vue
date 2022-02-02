@@ -4,7 +4,7 @@
       <HomeBanner />
     </div>
     <div class="row d-flex justify-content-center">
-      <EventCard v-for="e in events" :key="e.id" :event="e"/>
+      <EventCard class="eventCard" v-for="e in events" :key="e.id" :event="e"/>
     </div>
   </div>
 </template>
@@ -35,5 +35,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.eventCard:hover {
+  transform: scale(0.95);
+}
 </style>

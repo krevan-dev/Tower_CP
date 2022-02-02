@@ -10,6 +10,13 @@
       Made with 😡 by Kyle E.
     </div>
   </footer>
+  <Modal id="createEvent">
+    <template #modal-title>
+    </template>
+    <template #modal-body>
+      <CreateEventForm />
+    </template>
+  </Modal>
 </template>
 
 <script>
