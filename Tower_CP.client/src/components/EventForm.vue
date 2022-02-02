@@ -49,20 +49,16 @@ import Pop from '../utils/Pop'
 import { useRouter } from 'vue-router'
 import { Modal } from 'bootstrap'
 import { AppState } from '../AppState'
-import { watchEffect } from '@vue/runtime-core'
 export default {
   setup(){
     const router = useRouter()
     const editable = ref({ name: "", description: "", location: "", startDate: "", capacity: "", coverImg: "", type: "" })
-    watchEffect(() => {
-      editable.value = {}
-    })
     return {
       editable,
       async handleEvent() {
         try {
           await eventsService.createEvent(editable.value)
-          Modal.getOrCreateInstance(document.getElementById('createEvent')).hide()
+          Modal.getOrCreateInstance(document.getElementById('eventModal')).hide()
           editable.value = {}
           Pop.toast("Event created!")
           router.push({

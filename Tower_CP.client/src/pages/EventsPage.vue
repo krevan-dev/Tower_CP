@@ -14,8 +14,8 @@
             <div class="d-flex justify-content-end">
               <h3 v-if="activeEvent.isCanceled" class="text-danger">Sorry, this event has been cancelled.</h3>
               <h3 v-if="activeEvent.capacity == 0" class="text-danger">Sorry, this event has reached it's capacity.</h3>
-              <button v-if="account.id && !activeEvent.isCanceled" :disabled="activeEvent.id == myEvents.eventId" class="btn btn-success" @click.prevent="attendEvent(account.id, activeEvent.id)">Mark as attending</button>
-              <button v-if="activeEvent.creatorId === account.id && !activeEvent.isCanceled" class="btn btn-info mx-2" data-bs-target="#edit-modal" data-bs-toggle="modal">Edit Event</button>
+              <button v-if="account.id && !activeEvent.isCanceled && activeEvent.id !== myEvents.eventId" :disabled="activeEvent.id == myEvents.eventId" class="btn btn-success" @click.prevent="attendEvent(account.id, activeEvent.id)">Mark as attending</button>
+              <button v-if="activeEvent.creatorId === account.id && !activeEvent.isCanceled" class="btn btn-info mx-2">Edit Event</button>
               <button v-if="activeEvent.creatorId === account.id && !activeEvent.isCanceled" @click.prevent="cancelEvent()" class="btn btn-danger">Cancel Event</button>
             </div>
             <div>

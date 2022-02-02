@@ -14,7 +14,7 @@ class AccountService {
 
   async getAllMyEvents() {
     const res = await api.get('account/attendees')
-    // logger.log(res.data)
+    logger.log(res.data)
     AppState.myEvents = res.data
   }
 }
