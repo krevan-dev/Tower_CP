@@ -23,7 +23,7 @@ export class AttendeesController extends BaseController {
 
   async removeAttend(req, res, next) {
     try {
-      req.body.accountId = req.userInfo.id
+      // req.body.accountId = req.userInfo.id
       const event = await attendeesService.removeAttend(req.params.id, req.userInfo.id)
       return res.send(event)
     } catch (error) {
