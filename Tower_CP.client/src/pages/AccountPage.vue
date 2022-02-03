@@ -1,7 +1,7 @@
 <template>
   <div class="row d-flex justify-content-center">
     <div class="d-flex justify-content-center">
-    <button class="mx-1 btn btn-info" @click.prevent="unattendEvent(account.id)" v-for="ticket in myEvents" :key="ticket.id">Unattend {{ticket.event.name}}</button>
+    <button class="mx-1 btn btn-info" @click.prevent="unattendEvent(ticket.id)" v-for="ticket in myEvents" :key="ticket.id">Unattend {{ticket.event.name}}</button>
     </div>
     <EventCard v-for="ticket in myEvents" :key="ticket.id" :event="ticket.event" />
   </div>

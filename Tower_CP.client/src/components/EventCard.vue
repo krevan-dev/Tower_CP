@@ -1,7 +1,7 @@
 <template>
 <div class="col-md-3 col-sm-6 mt-3">
-  <div class="card bg-dark text-white selectable" :title="event.name" @click="goToEvent()">
-    <img :src="event.coverImg" class="card-img cardSize" alt="...">
+  <div class="card bg-dark text-white" :class="{selectable: !event.isCanceled}" :title="event.name" @click="goToEvent()">
+    <img :src="event.coverImg" class="card-img cardSize" :class="{ canceled : event.isCanceled }" alt="...">
     <div class="card-img-overlay">
       <h4 class="card-title">{{event.name}}</h4>
       <h6>{{new Date(event.startDate).toLocaleString()}}</h6>
@@ -43,5 +43,9 @@ export default {
   height: 40vh;
   object-fit: cover;
   object-position: bottom;
+}
+
+.canceled {
+  filter: grayscale(1)
 }
 </style>
