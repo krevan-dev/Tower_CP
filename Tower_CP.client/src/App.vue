@@ -7,7 +7,7 @@
   </main>
   <footer class="mt-3">
     <div class="bg-dark text-light text-center p-4">
-      Made with sadness and caffeine by Kyle E.
+      Made with ❤️ by Kyle E.
     </div>
   </footer>
   <Modal id="eventModal">
